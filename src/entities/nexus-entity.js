@@ -85,6 +85,7 @@ export default class NexusEntity extends GameEntity {
                 game: this.game,
                 side: this.side,
                 position: this.waypoints.mid[0],
+                waypoints: this.waypoints.mid,
             })
         );
     }

@@ -94,12 +94,18 @@ export default class GameEntity extends Entity {
         return false;
     }
     /**
+     * @param {Victor} position
+     */
+    gotoPosition(position) {
+        var d = position.clone().subtract(this.position).norm();
+        d.multiplyScalar(this.movementSpeed);
+        this.game.physicsEngine.setVelocityForBody(this.body, d);
+    }
+    /**
      * @param {GameEntity} e
      */
     gotoEntity(e) {
-        var d = e.position.clone().subtract(this.position).norm();
-        d.multiplyScalar(this.movementSpeed);
-        this.game.physicsEngine.setVelocityForBody(this.body, d);
+        this.gotoPosition(e.position);
     }
     /**
      * @param {GameEntity} e

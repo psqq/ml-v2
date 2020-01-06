@@ -42022,12 +42022,18 @@ class GameEntity extends _classes_entity__WEBPACK_IMPORTED_MODULE_2__["default"]
         return false;
     }
     /**
+     * @param {Victor} position
+     */
+    gotoPosition(position) {
+        var d = position.clone().subtract(this.position).norm();
+        d.multiplyScalar(this.movementSpeed);
+        this.game.physicsEngine.setVelocityForBody(this.body, d);
+    }
+    /**
      * @param {GameEntity} e
      */
     gotoEntity(e) {
-        var d = e.position.clone().subtract(this.position).norm();
-        d.multiplyScalar(this.movementSpeed);
-        this.game.physicsEngine.setVelocityForBody(this.body, d);
+        this.gotoPosition(e.position);
     }
     /**
      * @param {GameEntity} e
@@ -42322,6 +42328,7 @@ class MinionEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_4__["default"] 
             maxHp: 300,
             maxMp: 0,
             attackDamge: 30,
+            waypoints: [],
         });
         super(o);
         this.createBody();
@@ -42329,6 +42336,9 @@ class MinionEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_4__["default"] 
             this.image = this.game.imageManager.getImage('BlueMinion');
         else
             this.image = this.game.imageManager.getImage('RedMinion');
+        /** @type {Victor[]} */
+        this.waypoints = o.waypoints;
+        this.currentWaypoint = 0;
     }
     createBody() {
         this.body = this.game.physicsEngine.addBody({
@@ -42338,9 +42348,18 @@ class MinionEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_4__["default"] 
             size: this.size,
         });
     }
+    getCurrentWaypoint() {
+        const wp = this.waypoints[this.currentWaypoint];
+        if (wp.distance(this.position) < 5) {
+            this.currentWaypoint += 1;
+        }
+        this.currentWaypoint = Math.min(this.currentWaypoint, this.waypoints.length - 1);
+        return this.waypoints[this.currentWaypoint];
+    }
     update() {
         super.update();
-        var enemy = this.searchForNearestEnemy();
+        const enemy = this.searchForNearestEnemy();
+        const waypoint = this.getCurrentWaypoint();
         if (!enemy) {
             this.game.physicsEngine.setVelocityForBody(this.body, new victor__WEBPACK_IMPORTED_MODULE_1___default.a(0, 0));
             return;
@@ -42349,7 +42368,7 @@ class MinionEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_4__["default"] 
             this.game.physicsEngine.setVelocityForBody(this.body, new victor__WEBPACK_IMPORTED_MODULE_1___default.a(0, 0));
             this.attack(enemy);
         } else {
-            this.gotoEntity(enemy);
+            this.gotoPosition(waypoint);
         }
     }
     draw() {
@@ -42473,6 +42492,7 @@ class NexusEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_12__["default"] 
                 game: this.game,
                 side: this.side,
                 position: this.waypoints.mid[0],
+                waypoints: this.waypoints.mid,
             })
         );
     }
