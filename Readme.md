@@ -1,5 +1,5 @@
 
-[Play it now!](https://psqq.github.io/simple-aram-2d-moba-game/dist/index.html)
+[Play it now!](https://psqq.github.io/ml-v2/dist/)
 
 Simple all mid MOBA Game.
 
