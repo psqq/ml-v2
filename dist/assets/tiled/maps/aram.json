@@ -114,6 +114,7 @@
          "y":0
         }, 
         {
+         "color":"#aa5500",
          "draworder":"topdown",
          "id":11,
          "name":"towers",
@@ -187,8 +188,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1374,
-                 "y":240.5
+                 "x":1408,
+                 "y":257.166666666667
                 }, 
                 {
                  "height":0,
@@ -239,6 +240,7 @@
          "y":0
         }, 
         {
+         "color":"#5500ff",
          "draworder":"topdown",
          "id":12,
          "name":"nexuses",
@@ -293,6 +295,198 @@
         }, 
         {
          "draworder":"topdown",
+         "id":15,
+         "name":"mid-waypoints",
+         "objects":[
+                {
+                 "height":0,
+                 "id":63,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":160,
+                 "y":1456
+                }, 
+                {
+                 "height":0,
+                 "id":64,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":304.666666666667,
+                 "y":1328
+                }, 
+                {
+                 "height":0,
+                 "id":65,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":399.333333333333,
+                 "y":1214.66666666667
+                }, 
+                {
+                 "height":0,
+                 "id":66,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":481.333333333333,
+                 "y":1102
+                }, 
+                {
+                 "height":0,
+                 "id":67,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":592,
+                 "y":1023.33333333333
+                }, 
+                {
+                 "height":0,
+                 "id":68,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":716,
+                 "y":942.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":69,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":792,
+                 "y":827.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":70,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":863.333333333333,
+                 "y":734.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":71,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":935.333333333333,
+                 "y":641.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":72,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1023.33333333333,
+                 "y":577.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":73,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1120.66666666667,
+                 "y":510.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":74,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1196.66666666667,
+                 "y":432
+                }, 
+                {
+                 "height":0,
+                 "id":75,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1279.33333333333,
+                 "y":350.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":76,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1358.66666666667,
+                 "y":223.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":77,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1470.66666666667,
+                 "y":144
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "color":"#00ffff",
+         "draworder":"topdown",
          "id":13,
          "name":"hero-spawn",
          "objects":[
@@ -338,8 +532,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":15,
- "nextobjectid":62,
+ "nextlayerid":16,
+ "nextobjectid":78,
  "orientation":"orthogonal",
  "renderorder":"left-up",
  "tiledversion":"1.3.1",
