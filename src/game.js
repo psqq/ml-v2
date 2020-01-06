@@ -139,8 +139,12 @@ export default class Game extends BaseGame {
         key('x', () => {
             this.viewport.changeScale(0.1);
         });
-        key('r', () => {
-            this.pos.x = this.pos.y = 0;
+        document.addEventListener("wheel", e => {
+            if (e.deltaY > 0) {
+                this.viewport.changeScale(-0.1);
+            } else {
+                this.viewport.changeScale(0.1);
+            }
         });
     }
     update() {

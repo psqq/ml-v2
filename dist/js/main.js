@@ -42727,8 +42727,12 @@ class Game extends _classes_base_game__WEBPACK_IMPORTED_MODULE_0__["default"] {
         keymaster__WEBPACK_IMPORTED_MODULE_1___default()('x', () => {
             this.viewport.changeScale(0.1);
         });
-        keymaster__WEBPACK_IMPORTED_MODULE_1___default()('r', () => {
-            this.pos.x = this.pos.y = 0;
+        document.addEventListener("wheel", e => {
+            if (e.deltaY > 0) {
+                this.viewport.changeScale(-0.1);
+            } else {
+                this.viewport.changeScale(0.1);
+            }
         });
     }
     update() {
