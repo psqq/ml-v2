@@ -18,12 +18,16 @@ export default class MinionEntity extends GameEntity {
         _.defaults(o, {
             size: new Victor(12, 16),
             side: 'blue',
-            attackRange: 50,
+            attackRange: 75,
             maxHp: 300,
             maxMp: 0,
             attackDamge: 30,
             waypoints: [],
         });
+        if (o.side == 'red') {
+            o.maxHp = 800;
+            o.attackDamage = 140;
+        }
         super(o);
         this.createBody();
         if (this.side === 'blue')

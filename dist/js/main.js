@@ -42166,7 +42166,7 @@ class HeroEnity extends _game_entity__WEBPACK_IMPORTED_MODULE_12__["default"] {
         _.defaults(o, {
             size: new victor__WEBPACK_IMPORTED_MODULE_5___default.a(16, 16),
             zindex: 10,
-            attackRange: 85,
+            attackRange: 90,
             movementSpeed: 2,
             attackSpeed: 1.5,
             attackDamage: 50,
@@ -42324,12 +42324,16 @@ class MinionEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_4__["default"] 
         _.defaults(o, {
             size: new victor__WEBPACK_IMPORTED_MODULE_1___default.a(12, 16),
             side: 'blue',
-            attackRange: 50,
+            attackRange: 75,
             maxHp: 300,
             maxMp: 0,
             attackDamge: 30,
             waypoints: [],
         });
+        if (o.side == 'red') {
+            o.maxHp = 800;
+            o.attackDamage = 140;
+        }
         super(o);
         this.createBody();
         if (this.side === 'blue')
@@ -42585,7 +42589,7 @@ class Tower extends _game_entity__WEBPACK_IMPORTED_MODULE_12__["default"] {
             side: 'blue',
             maxMp: 0,
             maxHp: 1000,
-            attackRange: 90,
+            attackRange: 100,
             attackDamage: 300,
             attackSpeed: 1.2,
         });

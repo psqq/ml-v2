@@ -28,7 +28,7 @@ export default class Tower extends GameEntity {
             side: 'blue',
             maxMp: 0,
             maxHp: 1000,
-            attackRange: 90,
+            attackRange: 100,
             attackDamage: 300,
             attackSpeed: 1.2,
         });
