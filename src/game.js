@@ -49,6 +49,11 @@ export default class Game extends BaseGame {
          * @type {Object.<string, Victor>}
          */
         this.heroSpawn = {};
+        this.waypoints = {
+            mid: [],
+            top: [],
+            bot: [],
+        };
         this.ui = new UI({ game: this });
         this.ui.bindEvents();
     }
@@ -57,7 +62,7 @@ export default class Game extends BaseGame {
      */
     findEntityUnderThisPosition(pos) {
         var res = null;
-        for(var e of this.entityManager.entities) {
+        for (var e of this.entityManager.entities) {
             if (e.side) {
                 var len = e.position.clone().subtract(pos).length();
                 if (len < e.getMinSize()) {
@@ -71,7 +76,12 @@ export default class Game extends BaseGame {
     afterLoad() {
         this.player.entity.createAnimations();
         this.maps.aram.createStaticObjects();
+        this.viewport.setBounds({
+            left: 0, right: this.maps.aram.pixelSize.x,
+            top: 0, bottom: this.maps.aram.pixelSize.y,
+        });
         this.addTowers();
+        this.addWaypoints();
         this.addNexues();
         this.addHeroesSpawnPositions();
         this.player.entity.setPosition(
@@ -105,6 +115,7 @@ export default class Game extends BaseGame {
                     var o = {
                         game: this,
                         position: new Victor(obj.x, obj.y),
+                        waypoints: _.cloneDeep(this.waypoints),
                     };
                     for (var prop of obj.properties) {
                         o[prop.name] = prop.value;
@@ -125,6 +136,16 @@ export default class Game extends BaseGame {
                             this.heroSpawn[prop.value] = new Victor(obj.x, obj.y);
                         }
                     }
+                }
+            }
+        }
+    }
+    addWaypoints() {
+        var layerName = 'mid-waypoints';
+        for (var layer of this.maps.aram.mapJSON.layers) {
+            if (layer.type === 'objectgroup' && layer.name === layerName) {
+                for (var obj of layer.objects) {
+                    this.waypoints.mid.push(new Victor(obj.x, obj.y));
                 }
             }
         }

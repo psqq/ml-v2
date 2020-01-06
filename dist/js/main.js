@@ -42418,6 +42418,11 @@ class NexusEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_12__["default"] 
             maxMp: 0,
             maxHp: 2000,
             attackRange: 0,
+            waypoints: {
+                mid: [],
+                top: [],
+                bot: [],
+            },
         });
         super(o);
         this.createBody();
@@ -42428,6 +42433,30 @@ class NexusEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_12__["default"] 
         this.minionSpawnPosition = this.position;
         this.spawnInterval = 3000;
         this.previousSpawnTime = - this.spawnInterval;
+        /** @type {{mid: Victor[], top: Victor[], bot: Victor[]}} */
+        this.waypoints = o.waypoints;
+        this.initWaypoints();
+    }
+    /**
+     * @param {Victor[]} waypoints 
+     * @param {Victor} fromPosition 
+     */
+    sortWaypoints(waypoints, fromPosition) {
+        const a = waypoints;
+        let pp = fromPosition;
+        for (let i = 0; i < waypoints.length - 1; i++) {
+            for (let j = i + 1; j < waypoints.length; j++) {
+                if (a[j].distance(pp) < a[i].distance(pp)) {
+                    const t = a[i];
+                    a[i] = a[j]
+                    a[j] = t;
+                }
+            }
+            pp = a[i];
+        }
+    }
+    initWaypoints() {
+        this.sortWaypoints(this.waypoints.mid, this.position);
     }
     createBody() {
         this.body = this.game.physicsEngine.addBody({
@@ -42443,7 +42472,7 @@ class NexusEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_12__["default"] 
             new _minion_entity__WEBPACK_IMPORTED_MODULE_13__["default"]({
                 game: this.game,
                 side: this.side,
-                position: this.minionSpawnPosition.clone(),
+                position: this.waypoints.mid[0],
             })
         );
     }
@@ -42637,6 +42666,11 @@ class Game extends _classes_base_game__WEBPACK_IMPORTED_MODULE_0__["default"] {
          * @type {Object.<string, Victor>}
          */
         this.heroSpawn = {};
+        this.waypoints = {
+            mid: [],
+            top: [],
+            bot: [],
+        };
         this.ui = new _ui__WEBPACK_IMPORTED_MODULE_8__["default"]({ game: this });
         this.ui.bindEvents();
     }
@@ -42645,7 +42679,7 @@ class Game extends _classes_base_game__WEBPACK_IMPORTED_MODULE_0__["default"] {
      */
     findEntityUnderThisPosition(pos) {
         var res = null;
-        for(var e of this.entityManager.entities) {
+        for (var e of this.entityManager.entities) {
             if (e.side) {
                 var len = e.position.clone().subtract(pos).length();
                 if (len < e.getMinSize()) {
@@ -42659,7 +42693,12 @@ class Game extends _classes_base_game__WEBPACK_IMPORTED_MODULE_0__["default"] {
     afterLoad() {
         this.player.entity.createAnimations();
         this.maps.aram.createStaticObjects();
+        this.viewport.setBounds({
+            left: 0, right: this.maps.aram.pixelSize.x,
+            top: 0, bottom: this.maps.aram.pixelSize.y,
+        });
         this.addTowers();
+        this.addWaypoints();
         this.addNexues();
         this.addHeroesSpawnPositions();
         this.player.entity.setPosition(
@@ -42693,6 +42732,7 @@ class Game extends _classes_base_game__WEBPACK_IMPORTED_MODULE_0__["default"] {
                     var o = {
                         game: this,
                         position: new victor__WEBPACK_IMPORTED_MODULE_2___default.a(obj.x, obj.y),
+                        waypoints: _.cloneDeep(this.waypoints),
                     };
                     for (var prop of obj.properties) {
                         o[prop.name] = prop.value;
@@ -42713,6 +42753,16 @@ class Game extends _classes_base_game__WEBPACK_IMPORTED_MODULE_0__["default"] {
                             this.heroSpawn[prop.value] = new victor__WEBPACK_IMPORTED_MODULE_2___default.a(obj.x, obj.y);
                         }
                     }
+                }
+            }
+        }
+    }
+    addWaypoints() {
+        var layerName = 'mid-waypoints';
+        for (var layer of this.maps.aram.mapJSON.layers) {
+            if (layer.type === 'objectgroup' && layer.name === layerName) {
+                for (var obj of layer.objects) {
+                    this.waypoints.mid.push(new victor__WEBPACK_IMPORTED_MODULE_2___default.a(obj.x, obj.y));
                 }
             }
         }
@@ -42788,11 +42838,6 @@ async function main() {
     var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"]();
     await game.load();
     game.player.bindEvents();
-    game.viewport.setBounds({
-        left: 0, right: game.maps.aram.pixelSize.x,
-        top: 0, bottom: game.maps.aram.pixelSize.y,
-
-    });
     game.mainloop.run();
 }
 

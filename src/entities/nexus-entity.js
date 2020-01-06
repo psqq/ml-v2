@@ -30,6 +30,11 @@ export default class NexusEntity extends GameEntity {
             maxMp: 0,
             maxHp: 2000,
             attackRange: 0,
+            waypoints: {
+                mid: [],
+                top: [],
+                bot: [],
+            },
         });
         super(o);
         this.createBody();
@@ -40,6 +45,30 @@ export default class NexusEntity extends GameEntity {
         this.minionSpawnPosition = this.position;
         this.spawnInterval = 3000;
         this.previousSpawnTime = - this.spawnInterval;
+        /** @type {{mid: Victor[], top: Victor[], bot: Victor[]}} */
+        this.waypoints = o.waypoints;
+        this.initWaypoints();
+    }
+    /**
+     * @param {Victor[]} waypoints 
+     * @param {Victor} fromPosition 
+     */
+    sortWaypoints(waypoints, fromPosition) {
+        const a = waypoints;
+        let pp = fromPosition;
+        for (let i = 0; i < waypoints.length - 1; i++) {
+            for (let j = i + 1; j < waypoints.length; j++) {
+                if (a[j].distance(pp) < a[i].distance(pp)) {
+                    const t = a[i];
+                    a[i] = a[j]
+                    a[j] = t;
+                }
+            }
+            pp = a[i];
+        }
+    }
+    initWaypoints() {
+        this.sortWaypoints(this.waypoints.mid, this.position);
     }
     createBody() {
         this.body = this.game.physicsEngine.addBody({
@@ -55,7 +84,7 @@ export default class NexusEntity extends GameEntity {
             new MinionEntity({
                 game: this.game,
                 side: this.side,
-                position: this.minionSpawnPosition.clone(),
+                position: this.waypoints.mid[0],
             })
         );
     }
