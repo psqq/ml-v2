@@ -44,7 +44,7 @@ export default class MinionEntity extends GameEntity {
     }
     getCurrentWaypoint() {
         const wp = this.waypoints[this.currentWaypoint];
-        if (wp.distance(this.position) < 5) {
+        if (wp.distance(this.position) < 25) {
             this.currentWaypoint += 1;
         }
         this.currentWaypoint = Math.min(this.currentWaypoint, this.waypoints.length - 1);
