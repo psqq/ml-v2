@@ -69,6 +69,8 @@ export default class NexusEntity extends GameEntity {
     }
     initWaypoints() {
         this.sortWaypoints(this.waypoints.mid, this.position);
+        this.sortWaypoints(this.waypoints.top, this.position);
+        this.sortWaypoints(this.waypoints.bot, this.position);
     }
     createBody() {
         this.body = this.game.physicsEngine.addBody({
@@ -86,6 +88,22 @@ export default class NexusEntity extends GameEntity {
                 side: this.side,
                 position: this.waypoints.mid[0],
                 waypoints: this.waypoints.mid,
+            })
+        );
+        this.game.entityManager.addEntity(
+            new MinionEntity({
+                game: this.game,
+                side: this.side,
+                position: this.waypoints.top[0],
+                waypoints: this.waypoints.top,
+            })
+        );
+        this.game.entityManager.addEntity(
+            new MinionEntity({
+                game: this.game,
+                side: this.side,
+                position: this.waypoints.bot[0],
+                waypoints: this.waypoints.bot,
             })
         );
     }

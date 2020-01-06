@@ -149,6 +149,22 @@ export default class Game extends BaseGame {
                 }
             }
         }
+        var layerName = 'top-waypoints';
+        for (var layer of this.maps.aram.mapJSON.layers) {
+            if (layer.type === 'objectgroup' && layer.name === layerName) {
+                for (var obj of layer.objects) {
+                    this.waypoints.top.push(new Victor(obj.x, obj.y));
+                }
+            }
+        }
+        var layerName = 'bot-waypoints';
+        for (var layer of this.maps.aram.mapJSON.layers) {
+            if (layer.type === 'objectgroup' && layer.name === layerName) {
+                for (var obj of layer.objects) {
+                    this.waypoints.bot.push(new Victor(obj.x, obj.y));
+                }
+            }
+        }
     }
     addEntities() {
         this.player = new Player({ game: this });

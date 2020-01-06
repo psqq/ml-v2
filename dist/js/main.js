@@ -42476,6 +42476,8 @@ class NexusEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_12__["default"] 
     }
     initWaypoints() {
         this.sortWaypoints(this.waypoints.mid, this.position);
+        this.sortWaypoints(this.waypoints.top, this.position);
+        this.sortWaypoints(this.waypoints.bot, this.position);
     }
     createBody() {
         this.body = this.game.physicsEngine.addBody({
@@ -42493,6 +42495,22 @@ class NexusEntity extends _game_entity__WEBPACK_IMPORTED_MODULE_12__["default"] 
                 side: this.side,
                 position: this.waypoints.mid[0],
                 waypoints: this.waypoints.mid,
+            })
+        );
+        this.game.entityManager.addEntity(
+            new _minion_entity__WEBPACK_IMPORTED_MODULE_13__["default"]({
+                game: this.game,
+                side: this.side,
+                position: this.waypoints.top[0],
+                waypoints: this.waypoints.top,
+            })
+        );
+        this.game.entityManager.addEntity(
+            new _minion_entity__WEBPACK_IMPORTED_MODULE_13__["default"]({
+                game: this.game,
+                side: this.side,
+                position: this.waypoints.bot[0],
+                waypoints: this.waypoints.bot,
             })
         );
     }
@@ -42783,6 +42801,22 @@ class Game extends _classes_base_game__WEBPACK_IMPORTED_MODULE_0__["default"] {
             if (layer.type === 'objectgroup' && layer.name === layerName) {
                 for (var obj of layer.objects) {
                     this.waypoints.mid.push(new victor__WEBPACK_IMPORTED_MODULE_2___default.a(obj.x, obj.y));
+                }
+            }
+        }
+        var layerName = 'top-waypoints';
+        for (var layer of this.maps.aram.mapJSON.layers) {
+            if (layer.type === 'objectgroup' && layer.name === layerName) {
+                for (var obj of layer.objects) {
+                    this.waypoints.top.push(new victor__WEBPACK_IMPORTED_MODULE_2___default.a(obj.x, obj.y));
+                }
+            }
+        }
+        var layerName = 'bot-waypoints';
+        for (var layer of this.maps.aram.mapJSON.layers) {
+            if (layer.type === 'objectgroup' && layer.name === layerName) {
+                for (var obj of layer.objects) {
+                    this.waypoints.bot.push(new victor__WEBPACK_IMPORTED_MODULE_2___default.a(obj.x, obj.y));
                 }
             }
         }
