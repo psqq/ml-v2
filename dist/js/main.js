@@ -43025,6 +43025,7 @@ class UI {
     constructor(o) {
         this.game = o.game;
         this.cs = $('.cs');
+        this.hp = $('.hp');
         this.gold = $('.gold');
         this.dmg = $('.dmg');
         this.shop = $('.shop');
@@ -43066,6 +43067,7 @@ class UI {
         this.showCs();
         this.showGold();
         this.showDmg();
+        this.hp.text(this.game.player.entity.hp);
     }
 }
 
